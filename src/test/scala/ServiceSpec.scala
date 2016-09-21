@@ -19,18 +19,43 @@ class ServiceSpec extends FlatSpec with Matchers with ScalatestRouteTest with Se
 
   override val logger = NoLogging
 
-  val pokemonCount = PokemonCount(10)
+  val pokemonCount = PokemonCount(2)
 
-  override lazy val pokemonApiConnectionFlow = Flow[HttpRequest].map { _ =>
-    HttpResponse(
-      status = OK,
-      entity =
-        marshal("""{
-                  |	"count": 10,
-                  |	"previous": null,
-                  |	"results": [],
-                  |	"next": "http://pokeapi.co/api/v2/pokemon/?limit=0&offset=0"
-                  |}""".stripMargin.parseJson.convertTo[json.JsObject]))
+  val pokemonList =
+    """{
+      |	"count": 811,
+      |	"previous": null,
+      |	"results": [
+      |		{
+      |			"url": "http://pokeapi.co/api/v2/pokemon/1/",
+      |			"name": "bulbasaur"
+      |		},
+      |		{
+      |			"url": "http://pokeapi.co/api/v2/pokemon/2/",
+      |			"name": "ivysaur"
+      |		}
+      |	],
+      |	"next": "http://pokeapi.co/api/v2/pokemon/?limit=2&offset=2"
+      |}""".stripMargin
+
+  override lazy val pokemonApiConnectionFlow = Flow[HttpRequest].map { r =>
+    if (r.uri.toString().endsWith("?limit=0"))
+      HttpResponse(
+        status = OK,
+        entity =
+          marshal("""{
+                    |	"count": 2,
+                    |	"previous": null,
+                    |	"results": [],
+                    |	"next": "http://pokeapi.co/api/v2/pokemon/?limit=0&offset=0"
+                    |}""".stripMargin.parseJson.convertTo[json.JsObject]))
+    else if (r.uri.toString().endsWith("?limit=2"))
+      HttpResponse(
+        status = OK,
+        entity =
+          marshal(pokemonList.parseJson.convertTo[json.JsObject]))
+    else
+      HttpResponse(status = BadRequest)
   }
 
   "Service" should "respond to count pokemon" in {
@@ -38,6 +63,14 @@ class ServiceSpec extends FlatSpec with Matchers with ScalatestRouteTest with Se
       status shouldBe OK
       contentType shouldBe `application/json`
       responseAs[PokemonCount] shouldBe pokemonCount
+    }
+  }
+
+  "Service" should "respond to list pokemon" in {
+    Get("/pokemon/") ~> routes ~> check {
+      status shouldBe OK
+      contentType shouldBe `text/plain(UTF-8)`
+      responseAs[String].parseJson shouldBe pokemonList.parseJson
     }
   }
 
