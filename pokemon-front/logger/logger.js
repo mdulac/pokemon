@@ -8,7 +8,7 @@ if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
 }
 
-var logger = new winston.Logger({
+const logger = new winston.Logger({
     level: conf.application.log.level,
     transports: [
         new (winston.transports.Console)(),
