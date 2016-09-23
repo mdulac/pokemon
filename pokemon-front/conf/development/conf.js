@@ -10,7 +10,7 @@ module.exports = {
     service: {
         protocol: "http",
         host: "localhost",
-        port: 3004
+        port: 9000
     },
 
     middleware: {

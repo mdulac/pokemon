@@ -2,13 +2,19 @@ import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
 import Appli from "../components/App";
-import {resetErrorMessage} from "../actions";
+import {fetchPokemonList} from "../actions";
 
 class App extends Component {
+
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleDismissClick = this.handleDismissClick.bind(this)
+    }
+
+    componentDidMount() {
+        const {dispatch} = this.props;
+        dispatch(fetchPokemonList())
     }
 
     handleDismissClick(e) {
@@ -27,7 +33,7 @@ class App extends Component {
         }
 
         return (
-            <p style={{ backgroundColor: '#e99', padding: 10 }}>
+            <p style={{backgroundColor: '#e99', padding: 10}}>
                 <b>{errorMessage}</b>
                 {' '}
                 (<a href="#"
@@ -54,8 +60,7 @@ class App extends Component {
 App.propTypes = {
     // Injected by React Redux
     errorMessage: PropTypes.string,
-    resetErrorMessage: PropTypes.func.isRequired,
-    inputValue: PropTypes.string.isRequired,
+    dispatch: PropTypes.func.isRequired,
     // Injected by React Router
     children: PropTypes.node
 };
@@ -67,6 +72,10 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps, {
-    resetErrorMessage
-})(App)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
