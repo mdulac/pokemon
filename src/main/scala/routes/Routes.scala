@@ -37,11 +37,6 @@ object Routes {
                 }
               }
             } ~
-              path("_count") {
-                complete {
-                  controller.count(())
-                }
-              } ~
               path(Segment) { name =>
                 complete {
                   controller.fetch(name).map[ToResponseMarshallable] {

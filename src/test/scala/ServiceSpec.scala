@@ -58,14 +58,6 @@ class ServiceSpec extends FlatSpec with Matchers with ScalatestRouteTest with Se
       HttpResponse(status = BadRequest)
   }
 
-  "Service" should "respond to count pokemon" in {
-    Get("/pokemon/_count") ~> routes ~> check {
-      status shouldBe OK
-      contentType shouldBe `application/json`
-      responseAs[PokemonCount] shouldBe pokemonCount
-    }
-  }
-
   "Service" should "respond to list pokemon" in {
     Get("/pokemon/") ~> routes ~> check {
       status shouldBe OK
