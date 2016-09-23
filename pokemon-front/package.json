@@ -1,7 +1,7 @@
 {
-  "name": "redux-real-world-example",
+  "name": "Pokemon",
   "version": "0.0.0",
-  "description": "Redux real-world example",
+  "description": "Pokemon",
   "scripts": {
     "dev": "export NODE_ENV=development && webpack -d --config webpack.development.config.js && node server.js & json-server --watch db.json --port 3004",
     "prod": "export NODE_ENV=production && webpack -p --config webpack.production.config.js && node server.js",
