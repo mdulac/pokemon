@@ -1,28 +1,22 @@
 import React, {PropTypes} from "react";
 import Avatar from "material-ui/lib/Avatar";
+import List from "material-ui/lib/lists/list";
+import ListItem from "material-ui/lib/lists/list-item";
 
 const PokemonDetails = ({pokemon}) => {
     return (
-        <div>
-            <div>
-                {pokemon.id}
-            </div>
-            <div>
-                {pokemon.name}
-            </div>
-            <div>
-                {pokemon.height}
-            </div>
-            <div>
-                {pokemon.weight}
-            </div>
-            <div>
+        <List>
+            <ListItem>
                 <Avatar backgroundColor="white"
                         size={100}
                         src={pokemon.sprite}
                 />
-            </div>
-        </div>
+            </ListItem>
+            <ListItem primaryText={`Id : ${pokemon.id ? pokemon.id : ''}`}/>
+            <ListItem primaryText={`Name : ${pokemon.name ? pokemon.name : ''}`}/>
+            <ListItem primaryText={`Height : ${pokemon.height ? pokemon.height : ''}`}/>
+            <ListItem primaryText={`Weight : ${pokemon.weight ? pokemon.weight : ''}`}/>
+        </List>
     )
 };
 
