@@ -25,18 +25,10 @@ const PokemonDetails = ({pokemon}) => {
                         </ListItem>
                         <ListItem primaryText={`Id : ${pokemon.id ? pokemon.id : ''}`}/>
                         <ListItem primaryText={`Name : ${pokemon.name ? pokemon.name : ''}`}/>
+                        <ListItem
+                            primaryText={`Types : ${pokemon.types ? pokemon.types.map(t => t.name).join(', ') : ''}`}/>
                         <ListItem primaryText={`Height : ${pokemon.height ? pokemon.height : ''}`}/>
                         <ListItem primaryText={`Weight : ${pokemon.weight ? pokemon.weight : ''}`}/>
-                        {pokemon.types ? (<ListItem>
-                            <List>
-                                {pokemon.types.map(t => {
-                                    return (
-                                        <ListItem key={t.name}
-                                                  primaryText={`Type : ${t.name}`}/>
-                                    )
-                                })}
-                            </List>
-                        </ListItem>) : null}
                     </List>
                 </div>
             </Tab>
