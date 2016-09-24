@@ -15,12 +15,12 @@ class PokemonDetailsContainer extends Component {
     }
 
     render() {
-        console.log(this.props.stats);
         return (
             <div>
                 <PokemonDetails pokemon={{
                     id: this.props.id,
                     name: this.props.name,
+                    types: this.props.types,
                     height: this.props.height,
                     weight: this.props.weight,
                     sprite: this.props.sprite,
@@ -41,6 +41,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         id: state.details.id,
         name: ownProps.params.name,
+        types: state.details.types,
         height: state.details.height,
         weight: state.details.weight,
         sprite: state.details.sprite,

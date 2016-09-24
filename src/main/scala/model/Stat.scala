@@ -35,4 +35,3 @@ object Stat extends DefaultJsonProtocol {
   }
 
 }
-

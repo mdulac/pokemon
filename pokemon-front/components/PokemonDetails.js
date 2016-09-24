@@ -27,6 +27,16 @@ const PokemonDetails = ({pokemon}) => {
                         <ListItem primaryText={`Name : ${pokemon.name ? pokemon.name : ''}`}/>
                         <ListItem primaryText={`Height : ${pokemon.height ? pokemon.height : ''}`}/>
                         <ListItem primaryText={`Weight : ${pokemon.weight ? pokemon.weight : ''}`}/>
+                        {pokemon.types ? (<ListItem>
+                            <List>
+                                {pokemon.types.map(t => {
+                                    return (
+                                        <ListItem key={t.name}
+                                                  primaryText={`Type : ${t.name}`}/>
+                                    )
+                                })}
+                            </List>
+                        </ListItem>) : null}
                     </List>
                 </div>
             </Tab>
@@ -54,6 +64,7 @@ PokemonDetails.propTypes = {
     pokemon: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
+        types: PropTypes.arrayOf(PropTypes.string).isRequired,
         height: PropTypes.number.isRequired,
         weight: PropTypes.number.isRequired,
         sprite: PropTypes.string.isRequired,
