@@ -3,6 +3,8 @@ import Avatar from "material-ui/lib/Avatar";
 import List from "material-ui/lib/lists/list";
 import ListItem from "material-ui/lib/lists/list-item";
 
+const _ = require('lodash');
+
 const PokemonDetails = ({pokemon}) => {
     return (
         <List>
@@ -16,6 +18,15 @@ const PokemonDetails = ({pokemon}) => {
             <ListItem primaryText={`Name : ${pokemon.name ? pokemon.name : ''}`}/>
             <ListItem primaryText={`Height : ${pokemon.height ? pokemon.height : ''}`}/>
             <ListItem primaryText={`Weight : ${pokemon.weight ? pokemon.weight : ''}`}/>
+            {pokemon.stats ? (<ListItem>
+                <List>
+                    {pokemon.stats.map(s => {
+                        return (
+                            <ListItem primaryText={`Effort : ${s.effort} | Base stat : ${s.base_stat}`}/>
+                        )
+                    })}
+                </List>
+            </ListItem>) : null}
         </List>
     )
 };
@@ -26,7 +37,11 @@ PokemonDetails.propTypes = {
         name: PropTypes.string.isRequired,
         height: PropTypes.number.isRequired,
         weight: PropTypes.number.isRequired,
-        sprite: PropTypes.string.isRequired
+        sprite: PropTypes.string.isRequired,
+        stats: PropTypes.shape({
+            effort: PropTypes.number.isRequired,
+            base_stat: PropTypes.number.isRequired
+        }).isRequired
     }).isRequired
 };
 
