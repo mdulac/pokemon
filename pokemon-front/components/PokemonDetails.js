@@ -22,7 +22,7 @@ const PokemonDetails = ({pokemon}) => {
                 <List>
                     {pokemon.stats.map(s => {
                         return (
-                            <ListItem primaryText={`Effort : ${s.effort} | Base stat : ${s.base_stat}`}/>
+                            <ListItem primaryText={`Name : ${s.name} | Effort : ${s.effort} | Base stat : ${s.base_stat}`}/>
                         )
                     })}
                 </List>
@@ -39,6 +39,7 @@ PokemonDetails.propTypes = {
         weight: PropTypes.number.isRequired,
         sprite: PropTypes.string.isRequired,
         stats: PropTypes.shape({
+            name: PropTypes.string.isRequired,
             effort: PropTypes.number.isRequired,
             base_stat: PropTypes.number.isRequired
         }).isRequired
