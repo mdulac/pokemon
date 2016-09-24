@@ -14,7 +14,7 @@ object PokemonDetails extends DefaultJsonProtocol {
       "height" -> JsNumber(p.height),
       "weight" -> JsNumber(p.weight),
       "sprite" -> JsString(p.sprite),
-      "stats" -> JsArray(p.stats.toJson)
+      "stats" -> p.stats.toJson
     )
 
     override def read(value: JsValue) = {
