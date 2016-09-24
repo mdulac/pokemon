@@ -6,6 +6,8 @@ import TableBody from "material-ui/lib/table/table-body";
 import Avatar from 'material-ui/lib/Avatar';
 import FlatButton from 'material-ui/lib/flat-button';
 
+import {Link} from 'react-router'
+
 const _ = require('lodash');
 
 const PokemonList = ({pokemons}) => {
@@ -23,7 +25,9 @@ const PokemonList = ({pokemons}) => {
                                 style={style}>
                                 {_.toUpper(pokemon.name[0])}
                             </Avatar>
-                            <FlatButton label={pokemon.name} />
+                            <Link to={`/${pokemon.name}`}>
+                                <FlatButton label={pokemon.name}/>
+                            </Link>
                         </TableRowColumn>
                     </TableRow>
                 )}

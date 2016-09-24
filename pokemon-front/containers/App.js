@@ -12,13 +12,12 @@ class App extends Component {
         this.handleDismissClick = this.handleDismissClick.bind(this)
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const {dispatch} = this.props;
         dispatch(fetchPokemonList())
     }
 
     handleDismissClick(e) {
-        this.props.resetErrorMessage();
         e.preventDefault()
     }
 
@@ -78,4 +77,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App)

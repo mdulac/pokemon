@@ -1,11 +1,11 @@
-import React from 'react'
-import AddTodo from '../containers/Filter'
-import VisibleTodoList from '../containers/FilteredPokemonList'
+import React from "react";
+import Filter from "../containers/Filter";
+import PokemonListContainer from "../containers/PokemonListContainer";
 
 const App = () => (
     <div>
-        <AddTodo />
-        <VisibleTodoList />
+        <Filter />
+        <PokemonListContainer />
     </div>
 );
 

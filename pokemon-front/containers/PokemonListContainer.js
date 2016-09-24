@@ -18,8 +18,8 @@ const mapStateToProps = (state) => {
     }
 };
 
-const FilteredPokemonList = connect(
+const PokemonListContainer = connect(
     mapStateToProps
 )(PokemonList);
 
-export default FilteredPokemonList
+export default PokemonListContainer
