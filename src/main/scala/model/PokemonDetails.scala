@@ -1,8 +1,9 @@
 package model
 
-import spray.json.{DefaultJsonProtocol, DeserializationException, JsNumber, JsObject, JsString, JsValue, RootJsonFormat}
+import spray.json.{DefaultJsonProtocol, DeserializationException, JsArray, JsNumber, JsObject, JsString, JsValue, RootJsonFormat}
+import spray.json._
 
-case class PokemonDetails(id: BigDecimal, name: String, height: BigDecimal, weight: BigDecimal, sprite: String)
+case class PokemonDetails(id: BigDecimal, name: String, height: BigDecimal, weight: BigDecimal, sprite: String, stats: List[Stat])
 
 object PokemonDetails extends DefaultJsonProtocol {
 
@@ -12,13 +13,21 @@ object PokemonDetails extends DefaultJsonProtocol {
       "name" -> JsString(p.name),
       "height" -> JsNumber(p.height),
       "weight" -> JsNumber(p.weight),
-      "sprite" -> JsString(p.sprite)
+      "sprite" -> JsString(p.sprite),
+      "stats" -> JsArray(p.stats.toJson)
     )
 
     override def read(value: JsValue) = {
-      value.asJsObject.getFields("id", "name", "height", "weight", "sprites") match {
-        case Seq(JsNumber(id), JsString(name), JsNumber(height), JsNumber(weight), JsObject(sprites)) =>
-          PokemonDetails(id, name, height, weight, sprites("front_default").convertTo[String])
+      value.asJsObject.getFields("id", "name", "height", "weight", "sprites", "stats") match {
+        case Seq(JsNumber(id), JsString(name), JsNumber(height), JsNumber(weight), JsObject(sprites), stats) =>
+          PokemonDetails(
+            id,
+            name,
+            height,
+            weight,
+            sprites("front_default").convertTo[String],
+            stats.convertTo[List[Stat]]
+          )
         case _ =>
           throw DeserializationException("Pokemon details expected")
       }

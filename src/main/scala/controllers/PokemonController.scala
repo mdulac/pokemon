@@ -10,7 +10,7 @@ import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.Materializer
 import model.RequestFailure.{InvalidName, NameNotFound}
-import model.{PokemonCount, PokemonDetails, RequestFailure}
+import model.{PokemonCount, PokemonDetails, RequestFailure, Stat}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -55,6 +55,21 @@ class PokemonController(val logger: LoggingAdapter,
         case OK =>
           Unmarshal(response.entity).to[String]
         case _ => Unmarshal(response.entity).to[String].flatMap { entity =>
+          val error = s"Pokeapi request failed with status code ${response.status} and entity $entity"
+          logger.error(error)
+          Future.failed(new IOException(error))
+        }
+      }
+    }
+  }
+
+  val stats: Process[String, String] = name => {
+    logger.debug(s"Fetching Pokemon $name stats")
+    pokemonApiRequest(RequestBuilding.Get(s"/api/v2/pokemon/$name")).flatMap { response =>
+      response.status match {
+        case OK =>
+          Unmarshal(response.entity).to[String]
+        case _ => Unmarshal(response.entity).to[List[Stat]].flatMap { entity =>
           val error = s"Pokeapi request failed with status code ${response.status} and entity $entity"
           logger.error(error)
           Future.failed(new IOException(error))
