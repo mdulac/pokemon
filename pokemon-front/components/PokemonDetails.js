@@ -5,9 +5,10 @@ import ListItem from "material-ui/lib/lists/list-item";
 import Tabs from "material-ui/lib/tabs/tabs";
 import Tab from "material-ui/lib/tabs/tab";
 
-const injectTapEventPlugin = require("react-tap-event-plugin");
 const _ = require('lodash');
 
+// https://github.com/callemall/material-ui/issues/288
+const injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 
 const PokemonDetails = ({pokemon}) => {
