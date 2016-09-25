@@ -14,7 +14,7 @@ let Filter = ({dispatch}) => {
                     dispatch(filter(v))
                 }
                 }
-                floatingLabelText="Name"
+                floatingLabelText="Pokemon Name"
                 ref={node => {
                     input = node
                 }}
