@@ -1,9 +1,8 @@
 import React, {PropTypes} from "react";
-import Avatar from "material-ui/lib/Avatar";
-import List from "material-ui/lib/lists/list";
-import ListItem from "material-ui/lib/lists/list-item";
 import Tabs from "material-ui/lib/tabs/tabs";
 import Tab from "material-ui/lib/tabs/tab";
+import PokemonDetailsGeneral from "./PokemonDetailsGeneral";
+import PokemonDetailsStats from "./PokemonDetailsStats";
 
 const _ = require('lodash');
 
@@ -15,37 +14,10 @@ const PokemonDetails = ({pokemon}) => {
     return (
         <Tabs>
             <Tab label="General">
-                <List>
-                    <ListItem>
-                        <Avatar backgroundColor="white"
-                                size={100}
-                                src={pokemon.sprite}
-                        />
-                    </ListItem>
-                    <ListItem primaryText={`Id : ${pokemon.id ? pokemon.id : ''}`}/>
-                    <ListItem primaryText={`Name : ${pokemon.name ? pokemon.name : ''}`}/>
-                    <ListItem primaryText={`Order : ${pokemon.order ? pokemon.order : ''}`}/>
-                    <ListItem
-                        primaryText={`Types : ${pokemon.types ? pokemon.types.map(t => t.name).join(', ') : ''}`}/>
-                    <ListItem primaryText={`Height : ${pokemon.height ? pokemon.height : ''}`}/>
-                    <ListItem primaryText={`Weight : ${pokemon.weight ? pokemon.weight : ''}`}/>
-                    <ListItem
-                        primaryText={`Generations : ${pokemon.generations ? pokemon.generations.map(g => g.name).join(', ') : ''}`}/>
-                </List>
+                {pokemon && pokemon.id ? <PokemonDetailsGeneral pokemon={pokemon}/> : null}
             </Tab>
             <Tab label="Stats">
-                <List>
-                    {pokemon.stats ? (<ListItem>
-                        <List>
-                            {pokemon.stats.map(s => {
-                                return (
-                                    <ListItem key={s.name}
-                                              primaryText={`Name : ${s.name} | Effort : ${s.effort} | Base stat : ${s.base_stat}`}/>
-                                )
-                            })}
-                        </List>
-                    </ListItem>) : null}
-                </List>
+                {pokemon.stats ? <PokemonDetailsStats stats={pokemon.stats}/> : null}
             </Tab>
         </Tabs>
     )
