@@ -27,6 +27,9 @@ export const fetchPokemonList = () => (dispatch, getState) => {
     return fetch(`${API_ROOT}/pokemon`)
         .then(response => response.json())
         .then(json => dispatch(receivePokemonList(json)))
+        .catch(function (ex) {
+            console.error('Error while fetching pokemon list', ex)
+        })
 };
 
 // Pokemon details
@@ -49,6 +52,9 @@ export const fetchPokemonDetails = (name) => (dispatch, getState) => {
     return fetch(`${API_ROOT}/pokemon/${name}`)
         .then(response => response.json())
         .then(json => dispatch(receivePokemonDetails(json)))
+        .catch(function (ex) {
+            console.error('Error while fetching pokemon details', ex)
+        })
 };
 
 // Pokemon stats
@@ -71,4 +77,7 @@ export const fetchPokemonStats = (name) => (dispatch, getState) => {
     return fetch(`${API_ROOT}/stats/${name}`)
         .then(response => response.json())
         .then(json => dispatch(receivePokemonStats(json)))
+        .catch(function (ex) {
+            console.error('Error while fetching pokemon stats', ex)
+        })
 };
