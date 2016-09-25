@@ -4,10 +4,12 @@ import spray.json.{DefaultJsonProtocol, DeserializationException, JsNumber, JsOb
 
 case class PokemonDetails(id: BigDecimal,
                           name: String,
+                          order: BigDecimal,
                           types: List[Type],
                           height: BigDecimal,
                           weight: BigDecimal,
                           sprite: String,
+                          generations: List[Generation],
                           stats: List[Stat])
 
 object PokemonDetails extends DefaultJsonProtocol {
@@ -16,23 +18,27 @@ object PokemonDetails extends DefaultJsonProtocol {
     override def write(p: PokemonDetails) = JsObject(
       "id" -> JsNumber(p.id),
       "name" -> JsString(p.name),
+      "order" -> JsNumber(p.order),
       "types" -> p.types.toJson,
       "height" -> JsNumber(p.height),
       "weight" -> JsNumber(p.weight),
       "sprite" -> JsString(p.sprite),
+      "generations" -> p.generations.toJson,
       "stats" -> p.stats.toJson
     )
 
     override def read(value: JsValue) = {
-      value.asJsObject.getFields("id", "name", "types", "height", "weight", "sprites", "stats") match {
-        case Seq(JsNumber(id), JsString(name), types, JsNumber(height), JsNumber(weight), JsObject(sprites), stats) =>
+      value.asJsObject.getFields("id", "name", "order", "types", "height", "weight", "sprites", "game_indices", "stats") match {
+        case Seq(JsNumber(id), JsString(name), JsNumber(order), types, JsNumber(height), JsNumber(weight), JsObject(sprites), generations, stats) =>
           PokemonDetails(
             id,
             name,
+            order,
             types.convertTo[List[Type]],
             height,
             weight,
             sprites("front_default").convertTo[String],
+            generations.convertTo[List[Generation]],
             stats.convertTo[List[Stat]]
           )
         case _ =>
