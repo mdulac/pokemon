@@ -19,7 +19,6 @@ export const details = (state = {}, action) => {
 export const stats = (state = {}, action) => {
     switch (action.type) {
         case 'RECEIVE_POKEMON_STATS':
-            console.log(action.stats);
             return action.stats;
         default:
             return state;
