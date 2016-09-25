@@ -34,4 +34,11 @@ object Stat extends DefaultJsonProtocol {
     }
   }
 
+  def averageOf(stats: List[Stat]) = stats
+    .foldLeft(Map[String, Float]().withDefaultValue(0f)) { (v, s) =>
+      v + (s.name -> (v(s.name) + s.base_stat.toFloat))
+    }
+    .map(t => (t._1, t._2 / stats.count(s => s.name == t._1)))
+    .toList
+
 }
