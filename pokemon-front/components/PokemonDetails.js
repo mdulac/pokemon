@@ -3,6 +3,7 @@ import Tabs from "material-ui/lib/tabs/tabs";
 import Tab from "material-ui/lib/tabs/tab";
 import PokemonDetailsGeneral from "./PokemonDetailsGeneral";
 import PokemonDetailsStats from "./PokemonDetailsStats";
+import PokemonDetailsAverageStats from "./PokemonDetailsAverageStats";
 
 const _ = require('lodash');
 
@@ -18,6 +19,12 @@ const PokemonDetails = ({pokemon}) => {
             </Tab>
             <Tab label="Stats">
                 {pokemon.stats ? <PokemonDetailsStats stats={pokemon.stats}/> : null}
+            </Tab>
+            <Tab label="Average stats">
+                {pokemon.averageStats ? <PokemonDetailsAverageStats
+                    stats={pokemon.stats}
+                    averageStats={pokemon.averageStats}
+                /> : null}
             </Tab>
         </Tabs>
     )
@@ -38,7 +45,11 @@ PokemonDetails.propTypes = {
                 name: PropTypes.string.isRequired,
                 effort: PropTypes.number.isRequired,
                 base_stat: PropTypes.number.isRequired
-            })).isRequired
+            })).isRequired,
+        averageStats: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            stat: PropTypes.number.isRequired
+        }).isRequired
     }).isRequired
 };
 

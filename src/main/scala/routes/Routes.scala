@@ -32,7 +32,13 @@ object Routes {
             path(Segment) { name =>
               complete {
                 controller.statsAverage(name).map[ToResponseMarshallable] { v =>
-                  v.map { case (n, value) => s""" "$n" : $value """ }.mkString("{", ",", "}")
+                  v.map { case (n, value) =>
+                    s"""
+                       |{
+                       |  "name" : "$n",
+                       |  "stat" : $value
+                       |}""".stripMargin
+                  }.mkString("[", ",", "]")
                 }
               }
             }

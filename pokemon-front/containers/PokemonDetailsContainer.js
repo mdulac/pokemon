@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
-import {fetchPokemonDetails} from "../actions";
+import {fetchPokemonDetails, fetchPokemonStats} from "../actions";
 import PokemonDetails from "../components/PokemonDetails";
 
 class PokemonDetailsContainer extends Component {
@@ -11,7 +11,8 @@ class PokemonDetailsContainer extends Component {
 
     componentWillMount() {
         const {dispatch, name} = this.props;
-        dispatch(fetchPokemonDetails(name))
+        dispatch(fetchPokemonDetails(name));
+        dispatch(fetchPokemonStats(name));
     }
 
     render() {
@@ -26,7 +27,8 @@ class PokemonDetailsContainer extends Component {
                     weight: this.props.weight,
                     sprite: this.props.sprite,
                     generations: this.props.generations,
-                    stats: this.props.stats
+                    stats: this.props.stats,
+                    averageStats: this.props.averageStats
                 }}/>
             </div>
         )
@@ -50,6 +52,7 @@ const mapStateToProps = (state, ownProps) => {
         sprite: state.details.sprite,
         generations: state.details.generations,
         stats: state.details.stats,
+        averageStats: state.stats
     }
 };
 

@@ -7,6 +7,8 @@ const API_ROOT = conf.middleware.protocol
     + conf.middleware.port
     + conf.middleware.context;
 
+// Pokemon list
+
 export const REQUEST_POKEMON_LIST = 'REQUEST_POKEMON_LIST';
 export const RECEIVE_POKEMON_LIST = 'RECEIVE_POKEMON_LIST';
 
@@ -27,6 +29,8 @@ export const fetchPokemonList = () => (dispatch, getState) => {
         .then(json => dispatch(receivePokemonList(json)))
 };
 
+// Pokemon details
+
 export const REQUEST_POKEMON_DETAILS = 'REQUEST_POKEMON_DETAILS';
 export const RECEIVE_POKEMON_DETAILS = 'RECEIVE_POKEMON_DETAILS';
 
@@ -45,4 +49,26 @@ export const fetchPokemonDetails = (name) => (dispatch, getState) => {
     return fetch(`${API_ROOT}/pokemon/${name}`)
         .then(response => response.json())
         .then(json => dispatch(receivePokemonDetails(json)))
+};
+
+// Pokemon stats
+
+export const REQUEST_POKEMON_STATS = 'REQUEST_POKEMON_STATS';
+export const RECEIVE_POKEMON_STATS = 'RECEIVE_POKEMON_STATS';
+
+export const requestPokemonStats = () => ({
+    type: REQUEST_POKEMON_STATS
+});
+
+export const receivePokemonStats = (json) => ({
+    type: RECEIVE_POKEMON_STATS,
+    stats: json,
+    receivedAt: Date.now()
+});
+
+export const fetchPokemonStats = (name) => (dispatch, getState) => {
+    dispatch(requestPokemonStats());
+    return fetch(`${API_ROOT}/stats/${name}`)
+        .then(response => response.json())
+        .then(json => dispatch(receivePokemonStats(json)))
 };
