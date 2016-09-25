@@ -13,14 +13,16 @@ activator run
 
 Start the front (dev mode)
 ==========================
-cd pokemon-front
-npm install
-npm run dev
+- cd pokemon-front
+- npm install
+- npm run dev
 
 Start the front (prod mode)
 ==========================
-cd pokemon-front
-npm install
-npm run prod
+- cd pokemon-front
+- npm install
+- npm run prod
 
+Configuration
+=============
 You can modify the development or production configuration files in pokemon-front/conf
