@@ -8,9 +8,9 @@ module.exports = {
     },
 
     service: {
-        protocol: "https",
-        host: "api.github.com",
-        port: 443
+        protocol: "http",
+        host: "localhost",
+        port: 9000
     },
 
     middleware: {
