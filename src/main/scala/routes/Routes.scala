@@ -28,6 +28,15 @@ object Routes {
                 |""".stripMargin)
           }
         } ~
+          pathPrefix("stats") {
+            path(Segment) { name =>
+              complete {
+                controller.statsAverage(name).map[ToResponseMarshallable] { v =>
+                  v.map { case (n, value) => s""" "$n" : $value """ }.mkString("{", ",", "}")
+                }
+              }
+            }
+          } ~
           pathPrefix("pokemon") {
             pathEndOrSingleSlash {
               complete {
