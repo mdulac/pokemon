@@ -29,10 +29,11 @@ PokemonDetailsAverageStats.propTypes = {
             effort: PropTypes.number.isRequired,
             base_stat: PropTypes.number.isRequired
         })).isRequired,
-    averageStats: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        stat: PropTypes.number.isRequired
-    }).isRequired
+    averageStats: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            stat: PropTypes.number.isRequired
+        })).isRequired
 };
 
 export default PokemonDetailsAverageStats
