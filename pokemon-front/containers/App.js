@@ -44,7 +44,7 @@ class App extends Component {
     }
 
     render() {
-        const {children, inputValue} = this.props;
+        const {children} = this.props;
         return (
             <div>
                 <Appli />
@@ -64,10 +64,9 @@ App.propTypes = {
     children: PropTypes.node
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
-        errorMessage: state.errorMessage,
-        inputValue: ownProps.location.pathname.substring(1)
+        errorMessage: state.errorMessage
     }
 }
 
