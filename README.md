@@ -3,6 +3,10 @@ Pokemon
 
 [![Build Status](https://api.travis-ci.org/mdulac/pokemon.png?branch=master)](http://travis-ci.org/mdulac/pokemon)
 
+Intro
+=====
+This application use Akka HTTP, Spray Json, Scalatest, React and Redux
+
 Clone the repository
 ====================
 git clone https://github.com/mdulac/pokemon.git
